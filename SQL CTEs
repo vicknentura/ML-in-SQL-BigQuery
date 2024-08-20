@@ -1,0 +1,85 @@
+Fundamental Concepts:
+  Database: a structured collection of data
+  Table: a collection of related data organized into rows and columns
+  Rows: a single record within a table
+  Column: a specific type of data in a table
+
+Basic SQL Commands:
+
+SELECT: used to retrieve data from a database
+
+  SELECT column1, column2
+  FROM table_name
+
+WHERE: used to filter records based on a condition
+
+  SELECT column1, column2
+  FROM table_name
+  WHERE condition
+
+ORDER BY: used to sort the result set
+
+  SELECT column1, colunm2
+  FROM table_name
+  ORDER BY column1 ASC or DESC
+
+INSERT INTO: used to insert new data into a table
+
+  INSERT INTO table_name (column1, column2)
+  VALUES (values1, values2)
+
+UPDATE: used to modify existing data in a table
+
+  UPDATE table_name
+  SET column1 = new_value , column2 = new_value
+  WHERE condition
+
+DELETE: used to delete records from a table
+
+  DELETE FROM table_name
+  WHERE condition
+
+Aggregate functions 
+  COUNT: returns the number of rows
+    SELECT COUNT(*) FROM customers
+    SELECT COUNT(DISTINCT city) FROM customers
+
+  SUM: calculates the sum of a numeric column
+    SELECT SUM(order_total) FROM orders
+
+  AVG: calculates the average of a numeric column
+    SELECT AVG(salary) FROM employees
+
+  MIN: returns a minimum value
+    SELECT MIN(birth_date) FROM customers
+
+  MAX: returns the maximum value
+    SELECT MAX(order_date) FROM orders
+
+GROUP BY: group data based on a column
+
+  SELECT city, COUNT(*) AS customer_count
+  FROM customers
+  GROUP BY city
+
+HAVING: filter groups after grouping
+
+  SELECT city, COUNT(*) AS customer_count
+  FROM customers
+  GROUP BY city
+  HAVING COUNT(*) > 10
+
+JOIN: combine data from multiple tables
+
+  SELECT orders.order_id, customers.name, order_total #selects three columns to retrieve from the joined tables
+  FROM orders
+  INNER JOIN customers ON orders.customer_id = customers.customers_id #combines rows from two tables based on a shared column
+
+Subqueries: nested queries
+
+  SELECT * FROM customers
+  WHERE customer_id IN (SELECT customer_id FROM orders WHERE order_total > 1000)
+
+Indexes: improve query performance
+
+  CREATE INDEX idx_customer_name ON customers(name)
