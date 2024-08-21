@@ -1,0 +1,58 @@
+# Count the total number of records in the people table, aliasing the reuslt as count_records
+COUNT(*) AS count_records
+FROM people
+
+# Count the number of records with a birthdate in the people table, aliasing the result as count_birthdate
+SELECT COUNT(birthdate) AS count_birthdate
+FROM people
+
+# Count the records for languages and countries in the films table; alias as count_languages and count_countries
+SELECT COUNT(languages) AS count_languages, COUNT(country) AS count_countries
+FROM films
+
+# Return the unique counties represted in the films table using DISTINCT
+SELECT DISTINCT countries
+FROM films
+
+# Return the number of unique countries represented in the films table, aliased as count_distinct_countries
+SELECT COUNT(DISTINCT country) AS count_distinct_countries
+FROM films
+
+# Select the film_id and imdb_score from the reviews table and filter on scores higher than 7.0
+SELECT film_id, imdb_score
+FROM reviews
+WHERE imdb_score > 7.0;
+
+# Select the film_id and facebook_likes of the first ten records with less than 1000 likes from the reviews table
+SELECT film_id, facebook_likes
+FROM reviews
+WHERE facebook_likes < 1000
+LIMIT 10;
+
+# Count how many records have a num_votes of at least 100,000; use the alias films_over_100k_votes
+SELECT COUNT(*) AS films_over_100K_votes
+FROM reviews
+WHERE num_votes >= 100000;
+
+# Select and count the language field using the alias count_spanish, then apply a filter to select only Spanish from the language field
+SELECT COUNT(language) AS count_spanish
+FROM files
+WHERE language = 'Spanish';
+
+# Select the title and release_year for all German_language films released before 2000
+SELECT title, release_year
+FROM films
+WHERE release_year < 2000
+  AND language = 'German';
+
+# Select the title and release_year of all films released between 1990 and 2000 (inclusive) using BETWEEN
+SELECT title, release_year
+FROM films
+WHERE release_year BETWEEN 1990 aND 2000;
+
+# Using BETWEEN
+SELECT title, release_year
+FROM films
+WHERE release_year BETWEEN 1990 AND 2000
+	AND budget > 100000000
+	AND (language  = 'Spanish' OR language = 'French');
