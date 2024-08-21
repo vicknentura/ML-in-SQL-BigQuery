@@ -83,3 +83,38 @@ Subqueries: nested queries
 Indexes: improve query performance
 
   CREATE INDEX idx_customer_name ON customers(name)
+
+Wildcard: finds entries where name is in a position
+  SELECT name
+  FROM people
+  WHERE name LIKE '%r';
+
+  SELECT name
+  FROM people
+  WHERE name LIKE '__t%';
+
+  SELECT name
+  FROM people
+  WHERE name NOT LIKE 'A%';
+
+Examples
+  WHEREIN: query multiple conditions
+    SELECT title, release_year
+    FROM films
+    WHERE release_year IN (1990, 2000)
+      AND duration > 120;
+
+    SELECT COUNT(DISTINCT title) AS nineties_english_films_for_teens
+    FROM films
+    WHERE release_year BETWEEN 1990 AND 1999
+      AND language = 'English'
+      AND certification IN ('G', 'PG', 'PG-13');
+
+  NULL & IS NOT NULL
+    SELECT title AS no_budget_info
+    FROM films
+    WHERE budget IS NULL;
+
+    SELECT COUNT(id) AS count_language_known
+    FROM films
+    WHERE language IS NOT NULL;    
