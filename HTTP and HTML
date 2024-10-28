@@ -1,0 +1,89 @@
+# Get Request
+import requests
+
+URL = 'https://store.data-analyst.praktikum-services.ru/en/'
+req = requests.get(URL)
+
+print(req.text)
+
+# Get Request with Parameters
+URL = 'https://yandex.com/'
+PARAM={"page": "4"}
+req = requests.get(url = URL, params = PARAM)
+
+
+# Regular Expressions
+import requests
+import re
+
+URL = 'https://store.data-analyst.praktikum-services.ru/en/'
+req_text = requests.get(URL).text
+found_products = re.findall('Horizon[ \w\-%]+', req_text)
+
+print(len(found_products))
+
+print(found_products)
+
+
+# HTML Parsing
+import pandas as pd
+import requests  # Import the library for sending requests to the server
+from bs4 import BeautifulSoup  # Import the library for webpage parsing
+
+URL = 'https://store.data-analyst.praktikum-services.ru/en/'
+req = requests.get(URL)  # GET request
+soup = BeautifulSoup(req.text, 'lxml')
+
+name_products = []  # List where the product names are stored
+for row in soup.find_all(
+    'div', attrs={'class': 't754__title t-name t-name_md js-product-name'}
+):
+    name_products.append(row.text)
+price = []  # List where the product prices are stored
+for row in soup.find_all(
+    'div', attrs={'class': 't754__price-value js-product-price'}
+):
+    price.append(row.text)
+products_data = (
+    pd.DataFrame()
+)  # Dataframe with the data on product names and prices
+products_data['name'] = name_products
+products_data['price'] = price
+print(products_data.head(5))
+
+
+# API
+import requests
+
+BASE_URL = "https://weather.data-analyst.praktikum-services.ru/v1/forecast" 
+# URL for the get() method 
+
+params = {
+    "city" : "Moscow",
+    "hours" : False,
+    "limit" : 5,
+    "extra" : True
+}
+
+response = requests.get(BASE_URL, params=params)
+
+#write your code here
+print(response.text)
+
+
+# JSON
+#task solution code
+import requests
+import json
+
+BASE_URL = "https://weather.data-analyst.praktikum-services.ru/v1/forecast"
+
+params = {
+    "city" : "Moscow"
+}
+
+response = requests.get(BASE_URL, params=params)
+
+response_parsed = json.loads(response.text)
+fact_weather = response_parsed['fact']
+print(json.dumps(fact_weather))
