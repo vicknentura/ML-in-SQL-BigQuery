@@ -43,3 +43,25 @@ with tf.summary.record_if(True):
     tf.summary.scalar('Accuracy', accuracy, step=epoch)
 
   # ... other summaries, such as images, histograms, etc. ...
+
+
+#Example calculation in TensorFlow
+import tensorflow as tf
+
+# Define tensors
+a = tf.constant(2)
+b = tf.constant(3)
+
+# Define the operation
+c = a + b
+
+# Create a session and run the operation
+with tf.Session() as sess:
+  result = sess.run(c)
+  print(result)  # Output: 5
+
+
+#Logistic Regression
+out = tf.sigmoid(tf.add(tf.matmul(X, W), b))
+
+out = tf.sigmoid(tf.add(tf.matmul(X, Weights), Bias))
