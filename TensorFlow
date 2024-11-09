@@ -1,0 +1,45 @@
+#Implementing a Custom Model
+import tensorflow as tf
+
+class MyModel(tf.keras.Model):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.layer1 = tf.keras.layers.Dense(64, activation='relu')
+        self.layer2 = tf.keras.layers.Dense(10, activation='softmax')
+
+    def call(self, inputs):
+        x = self.layer1(inputs)   
+
+        return self.layer2(x)
+
+
+#Multiplying Features and Weights
+import torch
+
+# Create a feature matrix (batch_size, input_features)
+features = torch.randn(32, 10)
+
+# Create a weight matrix (input_features, output_features)
+weights = torch.randn(10, 5)
+
+# Perform matrix multiplication
+output = torch.matmul(features, weights)
+
+print(output.shape)  # Output: torch.Size([32, 5])
+
+
+#Example of a single layer nn
+y = torch.matmul(features, weights.T) + bias
+
+
+#Example implementation of TensorFlow's Summary Module
+import tensorflow as tf
+
+# ... your model and training loop ...
+
+with tf.summary.record_if(True):
+  with tf.name_scope('Metrics'):
+    tf.summary.scalar('Loss', loss, step=epoch)
+    tf.summary.scalar('Accuracy', accuracy, step=epoch)
+
+  # ... other summaries, such as images, histograms, etc. ...
