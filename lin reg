@@ -1,0 +1,7 @@
+-- Assuming a table named 'data' with columns 'X' and 'Y'
+SELECT 
+    (COUNT(*) * SUM(X * Y) - SUM(X) * SUM(Y)) 
+    / 
+    (COUNT(*) * SUM(X * X) - POWER(SUM(X), 2)) AS slope,
+    (SUM(Y) - slope * SUM(X)) / COUNT(*) AS intercept
+FROM data;
