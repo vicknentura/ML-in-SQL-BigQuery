@@ -1,0 +1,24 @@
+-- Assuming a table named 'forecasts' with columns 'actual' and 'forecast'
+
+-- MAE (Mean Absolute Error)
+SELECT AVG(ABS(actual - forecast)) AS MAE
+FROM forecasts;
+
+-- RMSE (Root Mean Squared Error)
+SELECT SQRT(AVG(POWER(actual - forecast, 2))) AS RMSE
+FROM forecasts;
+
+-- MSE (Mean Squared Error)
+SELECT AVG(POWER(actual - forecast, 2)) AS MSE
+FROM forecasts;
+
+-- MAPE (Mean Absolute Percentage Error)
+-- Note: This query might need adjustments if 'actual' values can be zero
+SELECT AVG(ABS((actual - forecast) / actual)) * 100 AS MAPE
+FROM forecasts
+WHERE actual <> 0; 
+
+-- sMAPE (Symmetric Mean Absolute Percentage Error)
+SELECT AVG(2 * ABS(actual - forecast) / (ABS(actual) + ABS(forecast))) * 100 AS sMAPE
+FROM forecasts
+WHERE actual <> 0 AND forecast <> 0; 
