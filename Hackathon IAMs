@@ -1,0 +1,62 @@
+My Project 37898
+
+Notebook name in GitHub: Google_Cloud_x_MLB(TM)_Hackathon_Exploring_MLB_Provided_Datasets.ipynb
+Notebook location in GitHub: https://github.com/vicknentura/ML-in-SQL-BigQuery/blob/main/Google_Cloud_x_MLB(TM)_Hackathon_Exploring_MLB_Provided_Datasets.ipynb
+
+Notebook name in Vertex AI: Google_Cloud_x_MLB(TM)_Hackathon_Exploring_MLB_Provided_Datasets.ipynb
+Notebook location in Vertex AI: https://console.cloud.google.com/vertex-ai/colab/notebooks?project=spry-district-431604-r1&activeNb=projects%2Fspry-district-431604-r1%2Flocations%2Fus-central1%2Frepositories%2F144d55cd-57ea-47b9-94fc-b9613b02ea62&scrollTo=dr7rQGjWAzaG
+
+Cloud Console URL for Bucket: https://console.cloud.google.com/storage/browser/vertex-ai-my-project-37898-data
+gsutil URI for Bucket: gs://vertex-ai-my-project-37898-data
+    Send from Colab Enterprise (Vertex AI UI) to GCS
+        - !gsutil cp train.py gs://vertex-ai-my-project-37898-data/training_code/
+    Send from GitHub to GCS
+        - !curl -L "https://raw.githubusercontent.com/vicknentura/ML-in-SQL-BigQuery/main/requirements.txt" > requirements.txt
+        - !gsutil cp requirements.txt gs://vertex-ai-my-project-37898-data/training_code/
+
+Project ID: spry-district-431604-r1
+
+Bucket name: vertex-ai-my-project-37898-data
+Region: us-west2
+
+Principal (Vertex AI service account): 1017988703193-compute@developer.gserviceaccount.com
+  - Artifact Registry Writer
+  - BigQuery Job User
+  - Cloud Run Admin
+  - Editor
+  - Logs Writer
+  - Service Account User
+  - Vertex AI Administrator
+  - Computer Storage Admin
+  - Service Account Token Creator
+
+
+gcloud compute disks list --filter="users:(1017988703193-compute@developer.gserviceaccount.com)"
+
+https://console.cloud.google.com/vertex-ai/colab/notebooks;source=owned?project=spry-district-431604-r1&cloudshell=true&activeNb=projects%2Fspry-district-431604-r1%2Flocations%2Fus-central1%2Frepositories%2Fe76472bf-158a-4254-a8d2-e460d1f87a3b
+
+
+# Submit Vertex AI Training Job
+gcloud ai custom-jobs create \
+    --region us-west2 \
+    --display-name mlb-training-job \
+    --config='{
+        "workerPoolSpecs": [{
+            "machineSpec": {"machineType": "n1-standard-4"},
+            "replicaCount": 1,
+            "container": {
+                "imageUri": "us-docker.pkg.dev/vertex-ai/training/tf-cpu.2-10:latest",
+                "args": [
+                    "--data_path=gs://vertex-ai-my-project-37898-data/path/to/merged_df.csv",
+                    "--model_output_dir=gs://vertex-ai-my-project-37898-data/models/",
+                    "--target_season=2024",
+                    "--historical_seasons=2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013"
+                ],
+                "scriptPath": "gs://vertex-ai-my-project-37898-data/training_code/train.py",
+                "requirements": [
+                    "gs://vertex-ai-my-project-37898-data/training_code/requirements.txt"
+                ]
+            }
+        }],
+        "baseOutputDirectory": "gs://vertex-ai-my-project-37898-data/training_code/"
+    }'
